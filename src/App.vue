@@ -1,21 +1,21 @@
 <template>
   <div id="nav">
     <router-link to="/">Início</router-link> -
-    <router-link to="/basket">Carrinho (0)</router-link> 
+    <router-link to="/basket">Carrinho ({{ this.productsInBag.length }})</router-link>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
-  export default {
-    created() {
-      this.$store.dispatch('loadProducts');
-    }
-  }
-  
+export default {
+  created() {
+    this.$store.dispatch('loadProducts')
+  },
+  computed: mapState(['productsInBag'])
+}
 </script>
-
 
 <style lang="scss">
 #app {
@@ -38,7 +38,6 @@
   text-align: center;
   background-color: rgb(37, 37, 37);
   color: white;
-
 
   a {
     color: white;
