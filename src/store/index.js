@@ -3,13 +3,17 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    products: [1, 2, 3]
+    products: [],
   },
-  mutations: {},
+  mutations: {
+    loadProducts(state, products) {
+      state.products = products;
+    }
+  },
   actions: {
-    loadProducts() {
+    loadProducts({ commit }) {
       axios.get('https://fakestoreapi.com/products').then((response) => {
-        console.log('response.data: ', response.data)
+        commit('loadProducts', response.data);
       })
     }
   },
