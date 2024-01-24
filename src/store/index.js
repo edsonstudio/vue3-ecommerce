@@ -4,31 +4,33 @@ import axios from 'axios'
 export default createStore({
   state: {
     products: [],
-    productsInBag: [],
+    productsInBag: []
   },
   mutations: {
     loadProducts(state, products) {
-      state.products = products;
+      state.products = products
     },
     addToBag(state, product) {
-      state.productsInBag.push(product);
+      state.productsInBag.push(product)
     },
     removeFromBag(state, productId) {
-      var updatedBag = state.productsInBag.filter(item => item.id != productId);
-      state.productsInBag = updatedBag;
+      var updatedBag = state.productsInBag.filter((item) => item.id != productId)
+      state.productsInBag = updatedBag
     }
   },
   actions: {
     loadProducts({ commit }) {
       axios.get('https://fakestoreapi.com/products').then((response) => {
-        commit('loadProducts', response.data);
+        commit('loadProducts', response.data)
       })
     },
     addToBag({ commit }, product) {
-      commit('addToBag', product);
+      commit('addToBag', product)
     },
-    removeFromBag({ commit }, productId) {
-      commit('removeFromBag', productId);
+    removeFromBag({ commit }, product) {
+      if (confirm(`Tem certeza que deseja remover o produto: '${product.title}' do carrinho?`)) {
+        commit('removeFromBag', product.id)
+      }
     }
   },
   modules: {}

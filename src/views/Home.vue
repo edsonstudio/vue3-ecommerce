@@ -35,9 +35,7 @@ export default {
       return this.productsInBag.find((item) => item.id == product.id)
     },
     removeFromBag(product) {
-      if (confirm(`Tem certeza que deseja remover o produto: '${product.title}' do carrinho?`)) {
-        this.$store.dispatch('removeFromBag', product.id);
-      }
+      this.$store.dispatch('removeFromBag', product)
     }
   }
 }
